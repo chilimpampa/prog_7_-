@@ -367,3 +367,16 @@ namespace apartment {
 
 		return House(street, num_house, kol_rezidents);
 	}
+
+	bool ApartmentDataBase::IsInteger(const std::string& str) const {
+		if (str.empty()) return false;
+		for (char c : str) {
+			if (!std::isdigit(c)) return false;
+		}
+		return true;
+	}
+
+	int  ApartmentDataBase::GetTotalApartments() {  // Статический метод для получения общего числа квартир
+		return totalApartments;
+	}
+}
