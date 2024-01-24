@@ -216,3 +216,154 @@ namespace apartment {
 			}
 		}
 	}
+
+	Owner ApartmentDataBase::InputOwnerFromUser() {
+		std::string fio;
+		std::string name;
+
+		std::cout << " ";
+		std::cout << "Введите фамилию собственника: ";
+		std::getline(std::cin, fio);
+
+		std::cout << "Введите имя собственника: ";
+		std::getline(std::cin, name);
+
+		return Owner(fio, name);
+	}
+
+	Flat ApartmentDataBase::InputFlatFromUser() {
+		std::string street;
+		int num_flat;
+		int kol_rooms;
+		int square;
+
+		std::cout << " ";
+		std::cout << "Введите улицу: ";
+		std::getline(std::cin, street);
+
+		std::cout << "Введите номер квартиры: ";
+		while (true) {
+			std::string num_flat_Str;
+			std::getline(std::cin, num_flat_Str);
+			if (IsInteger(num_flat_Str)) {
+				num_flat = std::stoi(num_flat_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректный номер квартиры: ";
+			}
+		}
+
+		std::cout << "Введите площадь квартиры (кв. м): ";
+		while (true) {
+			std::string square_Str;
+			std::getline(std::cin, square_Str);
+			if (IsInteger(square_Str)) {
+				square = std::stoi(square_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректную площадь квартиры: ";
+			}
+		}
+
+		std::cout << "Введите кол-во комнат: ";
+		while (true) {
+			std::string  kol_rooms_Str;
+			std::getline(std::cin, kol_rooms_Str);
+			if (IsInteger(kol_rooms_Str)) {
+				kol_rooms = std::stoi(kol_rooms_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректное кол-во комнат: ";
+			}
+		}
+
+		return Flat(street, num_flat, kol_rooms, square);
+	}
+
+	Concierge ApartmentDataBase::InputConciergeFromUser() {
+		std::string concierge_fio;
+		std::string concierge_name;
+
+		std::cout << " ";
+		std::cout << "Введите фамилию консьержа: ";
+		std::getline(std::cin, concierge_fio);
+
+		std::cout << "Введите имя консьержа: ";
+		std::getline(std::cin, concierge_name);
+
+		return Concierge(concierge_fio, concierge_name);
+	}
+
+	Doorway ApartmentDataBase::InputDoorwayFromUser() {
+		int kol_flat;
+		int num_doorway;
+
+		std::cout << "Введите номер подъезда: ";
+		while (true) {
+			std::string num_doorway_Str;
+			std::getline(std::cin, num_doorway_Str);
+			if (IsInteger(num_doorway_Str)) {
+				num_doorway = std::stoi(num_doorway_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректный номер подъезда: ";
+			}
+		}
+
+		std::cout << "Введите кол-во квартир в подъезде: ";
+		while (true) {
+			std::string kol_flat_Str;
+			std::getline(std::cin, kol_flat_Str);
+			if (IsInteger(kol_flat_Str)) {
+				kol_flat = std::stoi(kol_flat_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректное кол-во квартир: ";
+			}
+		}
+
+		return Doorway(num_doorway, kol_flat);
+	}
+
+	House ApartmentDataBase::InputHouseFromUser() {
+		std::string street;
+		int num_house;
+		int kol_rezidents;
+
+		std::cout << " ";
+		std::cout << "Введите улицу: ";
+		std::getline(std::cin, street);
+
+		std::cout << "Введите номер дома: ";
+		while (true) {
+			std::string num_house_Str;
+			std::getline(std::cin, num_house_Str);
+			if (IsInteger(num_house_Str)) {
+				num_house = std::stoi(num_house_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректный номер дома: ";
+			}
+		}
+
+		std::cout << "Введите общее кол-во жильцов: ";
+		while (true) {
+			std::string kol_rezidents_Str;
+			std::getline(std::cin, kol_rezidents_Str);
+			if (IsInteger(kol_rezidents_Str)) {
+				kol_rezidents = std::stoi(kol_rezidents_Str);
+				break;
+			}
+			else {
+				std::cout << "Ошибка! Введите корректное кол-во жильцов: ";
+			}
+		}
+
+		return House(street, num_house, kol_rezidents);
+	}
