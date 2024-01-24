@@ -380,3 +380,68 @@ namespace apartment {
 		return totalApartments;
 	}
 }
+int main() {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	apartment::ApartmentDataBase ApartmentDB;
+
+	// Тестирование функций ввода данных
+	std::cout << "Ввод дома" << std::endl;
+	apartment::House house = ApartmentDB.InputHouseFromUser();
+	std::cout << "Ввод подъезда" << std::endl;
+	apartment::Doorway doorway = ApartmentDB.InputDoorwayFromUser();
+	std::cout << "Ввод консьержа" << std::endl;
+	apartment::Concierge concierge = ApartmentDB.InputConciergeFromUser();
+	std::cout << "Ввод квартиры" << std::endl;
+	apartment::Flat flat = ApartmentDB.InputFlatFromUser();
+	std::cout << "Ввод владельца квартиры" << std::endl;
+	apartment::Owner owner = ApartmentDB.InputOwnerFromUser();
+
+	// Добавление данных в базу данных
+
+	ApartmentDB.AddHouse(house);
+	ApartmentDB.AddDoorway(doorway);
+	ApartmentDB.AddConcierge(concierge);
+	ApartmentDB.AddFlat(flat);
+	ApartmentDB.AddOwner(owner);
+
+	// Тестирование функций вывода данных
+
+	ApartmentDB.PrintHouseList();
+	ApartmentDB.PrintDoorwayList();
+	ApartmentDB.PrintConciergeList();
+	ApartmentDB.PrintFlatList();
+	ApartmentDB.PrintOwnerList();
+
+	// Статические методы
+	std::cout << "Общее количество владельцев: " << Owner::GetTotalOwners() << std::endl;
+	std::cout << "Общее количество квартир: " << ApartmentDataBase::GetTotalApartments() << std::endl;
+
+	try
+	{
+		// Добавление квартиры с ошибочными данными (например, отрицательной площадью)
+		ApartmentDB.AddFlat(Flat("Улица", 1, 2, -50));
+
+		// Обработка ошибок ввода данных
+		cout << "Введите данные для еще одной квартиры: " << endl;
+		Flat newFlat = ApartmentDB.InputFlatFromUser(); // Метод может сгенерировать исключение при некорректных данных
+		ApartmentDB.AddFlat(newFlat);
+	}
+	catch (const std::exception&)
+	{
+		cerr << "Произошла ошибка: " << e.what() << endl;
+	}
+
+	ApartmentDataBase ApartmentDB;
+
+	// Добавление квартир в базу данных
+	ApartmentDB.AddFlat(Flat("Улица 1", 1, 3, 70));
+	ApartmentDB.AddFlat(Flat("Улица 2", 2, 2, 50));
+	ApartmentDB.AddFlat(Flat("Улица 3", 3, 4, 90));
+
+	// Вывод отсортированного списка квартир по площади
+	cout << "Список квартир, отсортированный по площади:" << endl;
+	ApartmentDB.PrintSortedFlatList();
+
+	return 0;
+}
